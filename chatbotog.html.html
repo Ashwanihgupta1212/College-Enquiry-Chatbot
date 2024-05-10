@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+    
+        .chat-container {
+            max-width: 400px;
+            margin: 50px auto;
+            border: 7px solid #585858;
+            border-radius: 7px;
+            padding: 20px;
+        }
+    
+        .chat-box {
+            height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+            border: 3px solid #585858;
+            border-bottom: 1px solid #ccc;
+        }
+    
+        #user-input-container {
+            position: relative;
+            width: calc(100% - 60px);
+            margin-bottom: 10px;
+        }
+    
+        #user-input {
+            width: 100%;
+            border: 2px solid #1d1c1c;
+            border-radius: 7px;
+            padding: 10px;
+        }
+    
+        #user-input::after {
+            content: "\0226B";
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            font-size: 18px;
+            cursor: pointer;
+        }
+    
+        button {
+            margin-top: 5px;
+            padding: 10px 10px;
+            border: 2px solid #1d1c1c;
+            border-radius: 7px;
+            cursor: pointer;
+            background-color: rgb(193, 253, 102);
+        }
+        .usermsg{
+            background-color: rgb(224, 253, 189);
+            color: rgb(3, 109, 104);
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            text-align: right;
+        }
+        .input-container {
+            position: relative;
+            display: inline-block;
+            width: calc(100% - 125px);
+        }
+        
+        #user-input {
+            width: calc(100% - 25px);
+            padding-right: 30px;
+            border: 2px solid #1d1c1c;
+            border-radius: 7px;
+            padding: 10px;
+        }
+        
+        .menu-bar {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+        }
+        
+        .menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            max-height: 180px;
+            overflow-y: auto;
+            font-size: small;
+        }
+        
+        
+        .menu-item {
+            padding: 5px;
+            cursor: pointer;
+        }
+        
+        .menu-item:hover {
+            background: #f0f0f0;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Choose option... click three dots..">
+            <div class="menu-bar" onclick="toggleMenu()">&#8942;</div>
+            <div class="menu" id="menu">
+                <div class="menu-item" onclick="optionClicked(1)">Hello</div>
+                <div class="menu-item" onclick="optionClicked(2)">Admission procedures and requirements</div>
+                <div class="menu-item" onclick="optionClicked(3)">Accepted payment options for fees</div>
+                <div class="menu-item" onclick="optionClicked(4)">Availability and activities of clubs or student organizations</div>
+                <div class="menu-item" onclick="optionClicked(5)">Academic calendar</div>
+                <div class="menu-item" onclick="optionClicked(6)">Description of the campus facilities</div>
+                <div class="menu-item" onclick="optionClicked(7)">Details for scholarships</div>
+                <div class="menu-item" onclick="optionClicked(8)">Fee structure for b.tech</div>
+                <div class="menu-item" onclick="optionClicked(9)">Is there any college fest and events</div>
+                <div class="menu-item" onclick="optionClicked(10)">List of courses offered</div>
+                <div class="menu-item" onclick="optionClicked(11)">NIET campus area</div>
+                <div class="menu-item" onclick="optionClicked(12)">NIET ranking</div>
+                <div class="menu-item" onclick="optionClicked(13)">NIET in map</div>
+                <div class="menu-item" onclick="optionClicked(14)">Previous year question paper</div>
+                <div class="menu-item" onclick="optionClicked(15)">Placement opportunities and statistics</div>
+                <div class="menu-item" onclick="optionClicked(16)">Qualifications and expertise of the faculty members</div>
+                <div class="menu-item" onclick="optionClicked(17)">Top recruiters</div>
+                <div class="menu-item" onclick="optionClicked(18)">What is the faculty to student ratio</div>
+                <div class="menu-item" onclick="optionClicked(19)">What about the hostel facilities</div>
+                <div class="menu-item" onclick="optionClicked(20)">Does niet have gym</div>
+            </div>
+        </div>
+        <button onclick="sendMessage()">Send</button>
+        <button onclick="clearChat()">Clear</button>
+    </div>
+    
+    
+
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById("user-input").value;
+            var chatBox = document.getElementById("chat-box");
+        
+            chatBox.innerHTML += "<div class='usermsg'>User: " + userInput + "</div>";
+        
+            var botResponse = getBotResponse(userInput);
+            chatBox.innerHTML += "<div>Bot: " + botResponse + "</div>";
+        
+            chatBox.scrollTop = chatBox.scrollHeight;
+        
+            document.getElementById("user-input").value = "";
+        }
+        function clearChat() {
+            document.getElementById("chat-box").innerHTML = "";
+        }
+        
+        function getBotResponse(userInput) {
+            if (userInput.toLowerCase().includes("hello")) {
+                return "Hello";
+            }
+            else if (userInput.toLowerCase().includes("hi")) {
+                return "Hi";
+            }
+            else if (userInput.toLowerCase().includes("accepted payment options for fees")) {
+                return "Candidate can go to NIET website and select the online fee payment option.<a href='https://feepal.org/index.php?/institute/noida-institute-of-engineering-and-technology' target='_blank'>Click Here</a>";
+            }
+            else if (userInput.toLowerCase().includes("fee structure for b.tech")) {
+                return "<a href='https://www.niet.co.in/all-fee-structure.php' target='_blank'>Click Here</a> for the fee structure of the b.tech";
+            }
+            else if (userInput.toLowerCase().includes("placement opportunities and statistics")) {
+                return "<a href='https://www.shiksha.com/college/noida-institute-of-engineering-and-technology-niet-greater-noida-49361/placement' target='_blank'>Click Here</a> for Placement opportunities and statistics";
+            }
+            else if (userInput.toLowerCase().includes("admission procedures and requirements")) {
+                return "Class 12 with 45% aggregate (Maths and Physics as compulsory subjects)";
+            }
+            else if (userInput.toLowerCase().includes("description of the campus facilities")) {
+                return "<a href ='https://www.careers360.com/colleges/noida-institute-of-engineering-and-technology-greater-noida/facilities' target='_blank'>Click Here</a> for campus facilities";
+            }
+            else if (userInput.toLowerCase().includes("qualifications and expertise of the faculty members")) {
+                return "<a href='https://www.niet.co.in/pdf/Mandatory-Disclosure.pdf' target='_blank'>Click Here</a> for qualifications and expertise of the faculty members";
+            }
+            else if (userInput.toLowerCase().includes("availability and activities of clubs or student organizations")) {
+                return "<a href='https://www.niet.co.in/society-club.php#:~:text=Cultural%20and%20Hobby%20Clubs&text=Nritya%20Bhakti%20is%20the%20Traditional,fledged%20events%20showcasing%20our%20culture.' target='_blank'>Click Here</a> Availability and activities of clubs or student organizations";
+            }
+            else if (userInput.toLowerCase().includes("list of courses offered")) {
+                return "Bachelor of Technology (B.Tech).\n Bachelor of Pharmacy (B.Pharma).\nMaster of Computer Application (MCA).\nMaster of Technology (M.Tech).\nBachelor of Technology + Master of Technology (Integrated).";
+            }
+            else if (userInput.toLowerCase().includes("details for scholarships")) {
+                return "NIET Business School strives to make each girl independent and is committed to pave her way into a corporate sector in a big way. To enable girls to pursue a career in management education, the institute provides a fee waiver of Rs. 1,00,000/- (if your score is above 60% in 10th,12th and Graduation).";
+            }
+            else if (userInput.toLowerCase().includes("what is the faculty to student ratio")) {
+                return "The student-faculty ratio is 15:1 for each department.";
+            }
+            else if (userInput.toLowerCase().includes("niet ranking")) {
+                return "NIET Greater Noida is accredited with an 'A' grade by NAAC. As per NIRF rankings 2023, the Institute falls in the 101-150 rank band.";
+            }
+            else if (userInput.toLowerCase().includes("academic calendar")) {
+                return "Academic calendar <a href='https://www.niet.co.in/academic-calendar-fee-structure.php' target='_blank'>Click Here</a>";
+            }
+            else if (userInput.toLowerCase().includes("previous year question paper")) {
+                return "Previous year question paper <a href='https://www.niet.co.in/examination.php' target='_blank'> Click Here</a>";
+            }
+            else if (userInput.toLowerCase().includes("what about the hostel facilities")) {
+                return "Three hostels on the campus offer well-ventilated and comfortable rooms with separate hostels for girls and boys. Rooms are available on single/double/multi-sharing basis. Common recreational areas develop a sense of camaraderie and foster long term bonds. <a href='https://www.niet.co.in/all-fee-structure.php' target='_blank'>Click Here for Fees Structure</a>";
+            }
+            else if (userInput.toLowerCase().includes("does niet have gym")) {
+                return "In order to help students keep their bodies fit along with their minds, a state-of-the-art gymnasium equipped with the latest exercise machines is available to the students.";
+            }
+            else if (userInput.toLowerCase().includes("is there any college fest and events")) {
+                return "There is no any fest held in the campus, there is a environment of study only,but that's not meaning that there is no fun,there are several clubs in the campus.";
+            }
+            else if (userInput.toLowerCase().includes("niet in map")) {
+                return "<a href='https://www.google.com/maps/place/Noida+Institute+of+Engineering+and+Technology+(NIET,+Greater+Noida)/@28.4629043,77.4726689,2689m/data=!3m1!1e3!4m10!1m2!2m1!1saddress+of+the+niet+college!3m6!1s0x390cc1e055d148a1:0x9f5207f7f0bc8f63!8m2!3d28.4629043!4d77.4906933!15sChthZGRyZXNzIG9mIHRoZSBuaWV0IGNvbGxlZ2UiBUgBiAEBWhIiEHRoZSBuaWV0IGNvbGxlZ2WSARJlbmdpbmVlcmluZ19zY2hvb2yaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVUTJia2t6TTNGM1JSQULgAQA!16s%2Fm%2F06zrd2c?entry=ttu' target='_blank'>Click Here</a> go to the map";
+            }
+            else if (userInput.toLowerCase().includes("top recruiters")) {
+                return " Amazon, BYJUS, Walmart, Microsoft, CVent, Deloitte, TATA, Capgemini, Wipro, HCL, Infosys, and Cognizant are the leading recruiters of NIET students.";
+            }
+            else if (userInput.toLowerCase().includes("niet campus area")) {
+                return "The institute has a sprawling area of 13.90 acres and lush green ambience all around.";
+            }
+            else {
+                return "I'm sorry, I didn't understand that.";
+            }
+        }
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
+        
+        function optionClicked(option) {
+            var message = document.getElementById("user-input");
+            var optionText = document.getElementsByClassName("menu-item")[option - 1].innerText;
+            message.value = optionText;
+        }
+        
+    </script>
+</body>
+</html>
